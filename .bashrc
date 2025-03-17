@@ -115,7 +115,7 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-
+alias :q="exit"
 alias cls="conda info --envs"
 # <<< conda initialize <<<
 # tmux alias
@@ -123,8 +123,8 @@ alias tls="tmux list-sessions"
 
 # don't think this is actually needed
 alias tma='tmux attach -t $1'
-if [ -f /etc/bash_completion.d/tma ]; then
-	. /etc/bash_completion.d/tma
+if [ -f $HOME/.bash_completion.d/tma ]; then
+	. $HOME/.bash_completion.d/tma
 fi
 
 export PATH=${PATH}:/home/vagrant/yadm/install/bin/
