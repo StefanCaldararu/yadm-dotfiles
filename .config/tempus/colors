@@ -1,0 +1,42 @@
+# Tempus Future palette: the single source of truth for terminal colors.
+# https://protesilaos.com/emacs/tempus-themes
+#
+# This file is read by both the shell (sh/bash/zsh) and tmux, so keep it to
+# plain NAME=value lines, with comments on their own lines.
+
+# Terminal palette (hex). These are baked into the "Tempus Future" terminal
+# profile by make-terminal-profile.sh; everything else refers to the palette
+# slots below, so the terminal decides the exact color.
+TEMPUS_HEX_BG="#090a18"
+TEMPUS_HEX_FG="#b4abac"
+TEMPUS_HEX_0="#090a18"
+TEMPUS_HEX_1="#ff7e8f"
+TEMPUS_HEX_2="#6aba39"
+TEMPUS_HEX_3="#bfa51a"
+TEMPUS_HEX_4="#4ab2d7"
+TEMPUS_HEX_5="#e58f84"
+TEMPUS_HEX_6="#2ab7bb"
+TEMPUS_HEX_7="#a7a2c4"
+TEMPUS_HEX_8="#2b1329"
+TEMPUS_HEX_9="#f78e2f"
+TEMPUS_HEX_10="#60ba80"
+TEMPUS_HEX_11="#de9b1d"
+TEMPUS_HEX_12="#8ba7ea"
+TEMPUS_HEX_13="#e08bd6"
+TEMPUS_HEX_14="#2cbab6"
+TEMPUS_HEX_15="#b4abac"
+
+# Named colors, as terminal palette slots (0-15). Use these everywhere.
+TEMPUS_BG=0
+TEMPUS_FG=15
+TEMPUS_RED=1
+TEMPUS_GREEN=2
+TEMPUS_YELLOW=3
+TEMPUS_BLUE=4
+TEMPUS_MAGENTA=5
+TEMPUS_CYAN=6
+TEMPUS_ORANGE=9
+# Muted text: comments, inactive items
+TEMPUS_ALT_FG=7
+# Raised surfaces: status lines, borders, selections
+TEMPUS_ALT_BG=8

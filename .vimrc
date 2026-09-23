@@ -1,97 +1,82 @@
 syntax enable
-colorscheme default
-highlight Comment ctermfg=blue guifg=blue
+" Neovim sets its colorscheme via lazy.nvim (lua/plugins/tempus.lua)
+if !has('nvim')
+	colorscheme default
+	highlight Comment ctermfg=blue guifg=blue
+endif
 set tabstop=4
 
 " Custom camelCase / snake_case motions
-" c = camelCaseMotion
-" s = snakeCaseMotion
+" Both move like w, but also stop at subword boundaries:
+"   c = camelCase motion: a capital letter starts a new word (fooBar -> Bar)
+"   s = snake_case motion: _ separates words (foo_bar -> bar)
+" They work as real motions: 3c, v2s, d2c, y3s, ...
 
-function! s:IsWordChar(c) abort
-return a:c =~# '\k'
-endfunction
-
-function CamelMotion() abort
+" mode: 'n' normal, 'v' visual, 'o' operator-pending
+function! s:SubwordMotion(kind, mode) abort
 let l:count = v:count1
+let l:start = getpos('.')
 
-while l:count > 0
-let l:line = getline('.')
-let l:pos = col('.') - 1
-let l:len = strlen(l:line)
-let l:found = 0
-
-let l:i = l:pos + 1
-
-while l:i < l:len
-	let l:c = l:line[l:i]
-	
-	if !s:IsWordChar(l:c)
-	  break
-	endif
-
-	if l:c =~# '[A-Z]'
-	  call cursor(line('.'), l:i + 1)
-	  let l:found = 1
-	  break
-	endif
-
-	let l:i +=1
-endwhile
-
-if l:found
-	let l:count -=1
-	continue
+if a:mode ==# 'v'
+	normal! gv
 endif
 
-normal! w
-
-let l:count -= 1
-
-endwhile
-endfunction
-
-
-function SnakeMotion() abort
-let l:count = v:count1
-
+let l:prev_lnum = line('.')
 while l:count > 0
-let l:line = getline('.')
-let l:pos = col('.') - 1
-let l:len = strlen(l:line)
-let l:found = 0
+	let l:prev_lnum = line('.')
+	let l:line = getline('.')
+	let l:len = strlen(l:line)
+	let l:i = col('.')
+	let l:found = 0
 
-let l:i = l:pos + 1
+	" Only look for a subword boundary when starting inside a word
+	if l:line[l:i - 1] =~# '\k'
+		while l:i < l:len && l:line[l:i] =~# '\k'
+			let l:c = l:line[l:i]
 
-while l:i < l:len
-	let l:c = l:line[l:i]
-	
-	if !s:IsWordChar(l:c)
-	  break
+			if a:kind ==# 'camel' && l:c =~# '[A-Z]'
+				let l:found = 1
+				break
+			endif
+
+			if a:kind ==# 'snake' && l:c ==# '_'
+				" Land on the first character after the underscore(s)
+				while l:i < l:len && l:line[l:i] ==# '_'
+					let l:i += 1
+				endwhile
+				let l:found = l:i < l:len && l:line[l:i] =~# '\k'
+				break
+			endif
+
+			let l:i += 1
+		endwhile
 	endif
 
-	if l:c ==# '_'
-	  call cursor(line('.'), l:i + 1)
-	  let l:found = 1
-	  break
+	if l:found
+		call cursor(line('.'), l:i + 1)
+	else
+		normal! w
 	endif
 
-	let l:i +=1
+	let l:count -= 1
 endwhile
 
-if l:found
-	let l:count -=1
-	continue
+" Like dw: when the last move wraps to the next line, the operator stops at
+" the end of the current line instead of eating the line break
+if a:mode ==# 'o' && line('.') > l:prev_lnum
+	let l:end = [l:prev_lnum, max([1, col([l:prev_lnum, '$']) - 1])]
+	call setpos('.', l:start)
+	normal! v
+	call cursor(l:end)
 endif
-
-normal! w
-
-let l:count -= 1
-
-endwhile
 endfunction
 
-nnoremap <silent> c : <C-U> call CamelMotion()<CR>
-nnoremap <silent> s : <C-U> call SnakeMotion()<CR>
+nnoremap <silent> c :<C-U>call <SID>SubwordMotion('camel', 'n')<CR>
+xnoremap <silent> c :<C-U>call <SID>SubwordMotion('camel', 'v')<CR>
+onoremap <silent> c :<C-U>call <SID>SubwordMotion('camel', 'o')<CR>
+nnoremap <silent> s :<C-U>call <SID>SubwordMotion('snake', 'n')<CR>
+xnoremap <silent> s :<C-U>call <SID>SubwordMotion('snake', 'v')<CR>
+onoremap <silent> s :<C-U>call <SID>SubwordMotion('snake', 'o')<CR>
 
 " Make W behave like x (backwards)
 nnoremap W b
