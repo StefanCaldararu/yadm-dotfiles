@@ -1,6 +1,5 @@
 # Tempus Future theme for the shell: prompt, ls and git colors.
-# Works in bash and zsh. Source it from ~/.bashrc or ~/.zshrc:
-#   . ~/.config/tempus/shell.sh
+# Sourced from ~/.bashrc.
 
 . "$HOME/.config/tempus/colors"
 
@@ -24,11 +23,7 @@ if [ -t 1 ] && [ -z "$TMUX" ] && [ "$TERM_PROGRAM" != Apple_Terminal ]; then
 fi
 
 # ── Prompt: user@host:dir ─────────────────────────────────────────
-if [ -n "$ZSH_VERSION" ]; then
-	PROMPT="%B%F{$TEMPUS_GREEN}%n@%m%f:%F{$TEMPUS_BLUE}%~%f%b "
-elif [ -n "$BASH_VERSION" ]; then
-	PS1="${debian_chroot:+($debian_chroot)}\[\e[1;38;5;${TEMPUS_GREEN}m\]\u@\h\[\e[0m\]:\[\e[1;38;5;${TEMPUS_BLUE}m\]\w\[\e[0m\]\$ "
-fi
+PS1="${debian_chroot:+($debian_chroot)}\[\e[1;38;5;${TEMPUS_GREEN}m\]\u@\h\[\e[0m\]:\[\e[1;38;5;${TEMPUS_BLUE}m\]\w\[\e[0m\]\$ "
 
 # ── ls ────────────────────────────────────────────────────────────
 # GNU ls (Linux, or gls on macOS)
