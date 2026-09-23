@@ -38,6 +38,8 @@ TEMPUS_BLUE=4
 TEMPUS_MAGENTA=5
 TEMPUS_CYAN=6
 TEMPUS_ORANGE=9
+# Soft blue that tempus uses for strings
+TEMPUS_PERIWINKLE=12
 # Muted text: comments, inactive items
 TEMPUS_ALT_FG=7
 # Raised surfaces: status lines, borders, selections
