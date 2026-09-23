@@ -23,7 +23,7 @@ if [ -t 1 ] && [ -z "$TMUX" ] && [ "$TERM_PROGRAM" != Apple_Terminal ]; then
 fi
 
 # ── Prompt: user@host:dir ─────────────────────────────────────────
-PS1="${debian_chroot:+($debian_chroot)}\[\e[1;38;5;${TEMPUS_YELLOW}m\]\u\[\e[0m\]@\[\e[1;38;5;${TEMPUS_MAGENTA}m\]\h\[\e[0m\]:\[\e[1;38;5;${TEMPUS_CYAN}m\]\w\[\e[0m\]\$ "
+PS1="${debian_chroot:+($debian_chroot)}\[\e[1;38;5;${TEMPUS_GREEN}m\]\u\[\e[0m\]@\[\e[1;38;5;${TEMPUS_MAGENTA}m\]\h\[\e[0m\]:\[\e[1;38;5;${TEMPUS_CYAN}m\]\w\[\e[0m\]\$ "
 
 # ── ls ────────────────────────────────────────────────────────────
 # GNU ls (Linux, or gls on macOS)
