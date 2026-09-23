@@ -27,6 +27,8 @@ TEMPUS_HEX_14="#2cbab6"
 TEMPUS_HEX_15="#b4abac"
 
 # Named colors, as terminal palette slots (0-15). Use these everywhere.
+# (The tempus shades are softer than the names suggest: RED is pink,
+# YELLOW is mustard, MAGENTA is salmon, CYAN is turquoise.)
 TEMPUS_BG=0
 TEMPUS_FG=15
 TEMPUS_RED=1

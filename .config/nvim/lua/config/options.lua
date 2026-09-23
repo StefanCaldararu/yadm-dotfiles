@@ -4,7 +4,5 @@
 
 local opt = vim.opt
 
-opt.number = false -- No line numbers
-opt.relativenumber = false
 opt.list = false -- Don't draw characters for tabs and trailing spaces
 opt.wrap = true -- Wrap long lines (at word boundaries, via LazyVim's linebreak)

@@ -23,16 +23,16 @@ if [ -t 1 ] && [ -z "$TMUX" ] && [ "$TERM_PROGRAM" != Apple_Terminal ]; then
 fi
 
 # ── Prompt: user@host:dir ─────────────────────────────────────────
-PS1="${debian_chroot:+($debian_chroot)}\[\e[1;38;5;${TEMPUS_GREEN}m\]\u@\h\[\e[0m\]:\[\e[1;38;5;${TEMPUS_BLUE}m\]\w\[\e[0m\]\$ "
+PS1="${debian_chroot:+($debian_chroot)}\[\e[1;38;5;${TEMPUS_YELLOW}m\]\u\[\e[0m\]@\[\e[1;38;5;${TEMPUS_MAGENTA}m\]\h\[\e[0m\]:\[\e[1;38;5;${TEMPUS_CYAN}m\]\w\[\e[0m\]\$ "
 
 # ── ls ────────────────────────────────────────────────────────────
 # GNU ls (Linux, or gls on macOS)
-LS_COLORS="di=1;38;5;${TEMPUS_BLUE}:ln=38;5;${TEMPUS_CYAN}:ex=1;38;5;${TEMPUS_GREEN}"
+LS_COLORS="di=1;38;5;${TEMPUS_CYAN}:ln=38;5;${TEMPUS_BLUE}:ex=1;38;5;${TEMPUS_GREEN}"
 LS_COLORS="${LS_COLORS}:so=38;5;${TEMPUS_MAGENTA}:pi=38;5;${TEMPUS_YELLOW}"
 LS_COLORS="${LS_COLORS}:bd=1;38;5;${TEMPUS_YELLOW}:cd=1;38;5;${TEMPUS_YELLOW}"
 LS_COLORS="${LS_COLORS}:or=38;5;${TEMPUS_RED}:mi=38;5;${TEMPUS_RED}"
 LS_COLORS="${LS_COLORS}:su=1;38;5;${TEMPUS_RED}:sg=1;38;5;${TEMPUS_RED}"
-LS_COLORS="${LS_COLORS}:tw=1;38;5;${TEMPUS_BLUE}:ow=1;38;5;${TEMPUS_BLUE}"
+LS_COLORS="${LS_COLORS}:tw=1;38;5;${TEMPUS_CYAN}:ow=1;38;5;${TEMPUS_CYAN}"
 export LS_COLORS
 
 # BSD ls (macOS) only knows the first 8 palette slots, as letters a-h
@@ -42,12 +42,12 @@ _tempus_bsd() {
 	[ "$2" = bold ] && _c=$(printf '%s' "$_c" | tr a-h A-H)
 	printf '%sx' "$_c"
 }
-LSCOLORS=$(_tempus_bsd $TEMPUS_BLUE bold)$(_tempus_bsd $TEMPUS_CYAN)
+LSCOLORS=$(_tempus_bsd $TEMPUS_CYAN bold)$(_tempus_bsd $TEMPUS_BLUE)
 LSCOLORS=${LSCOLORS}$(_tempus_bsd $TEMPUS_MAGENTA)$(_tempus_bsd $TEMPUS_YELLOW)
 LSCOLORS=${LSCOLORS}$(_tempus_bsd $TEMPUS_GREEN bold)
 LSCOLORS=${LSCOLORS}$(_tempus_bsd $TEMPUS_YELLOW bold)$(_tempus_bsd $TEMPUS_YELLOW bold)
 LSCOLORS=${LSCOLORS}$(_tempus_bsd $TEMPUS_RED bold)$(_tempus_bsd $TEMPUS_RED bold)
-LSCOLORS=${LSCOLORS}$(_tempus_bsd $TEMPUS_BLUE bold)$(_tempus_bsd $TEMPUS_BLUE bold)
+LSCOLORS=${LSCOLORS}$(_tempus_bsd $TEMPUS_CYAN bold)$(_tempus_bsd $TEMPUS_CYAN bold)
 export LSCOLORS
 unset -f _tempus_bsd
 unset _c
@@ -83,7 +83,7 @@ _tempus_git color.diff.whitespace "$TEMPUS_RED reverse"
 _tempus_git color.status.header "$TEMPUS_ALT_FG"
 _tempus_git color.status.branch "$TEMPUS_BLUE bold"
 _tempus_git color.status.added "$TEMPUS_GREEN"
-_tempus_git color.status.changed "$TEMPUS_RED"
+_tempus_git color.status.changed "$TEMPUS_MAGENTA"
 _tempus_git color.status.untracked "$TEMPUS_YELLOW"
 _tempus_git color.status.unmerged "$TEMPUS_ORANGE bold"
 _tempus_git color.branch.current "$TEMPUS_GREEN bold"
